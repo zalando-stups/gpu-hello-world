@@ -1,0 +1,34 @@
+
+# basic information for generating and executing this definition
+SenzaInfo:
+  StackName: gpu-hello-world
+  Parameters:
+    - PieroneRegistry:
+        Description: "The Pierone registry hostname."
+    - ImageVersion:
+        Description: "Docker image version of gpu-hello-world."
+    - MintBucket:
+        Description: "The Mint bucket to use for credential storage"
+
+# a list of senza components to apply to the definition
+SenzaComponents:
+
+  # this basic configuration is required for the other components
+  - Configuration:
+      Type: Senza::StupsAutoConfiguration # auto-detect network setup
+
+  # will create a launch configuration and auto scaling group with scaling triggers
+  - AppServer:
+      Type: Senza::TaupageAutoScalingGroup
+      InstanceType: p2.xlarge
+      SpotPrice: 10.0
+      SecurityGroups:
+        - app-gpu-hello-world
+      IamRoles:
+        - app-gpu-hello-world
+      AssociatePublicIpAddress: false # change for standalone deployment in default VPC
+      TaupageConfig:
+        application_version: "{{Arguments.ImageVersion}}"
+        runtime: Docker
+        source: "{{Arguments.PieroneRegistry}}/{{AccountInfo.TeamID}}/gpu-hello-world:{{Arguments.ImageVersion}}"
+        mint_bucket: "{{Arguments.MintBucket}}"
