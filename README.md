@@ -44,3 +44,6 @@ This assumes:
 * The Pierone registry is found at `pierone.example.com`
 * A Docker image with version `IMAGEVERSION` exists at the registry for team to which the logged-in user belongs.
 * The Mint bucket for credential storage is at `example-mint-bucket-eu-west-1`
+
+### Checking the output
+The output of the `nvidia-smi` command is written to `/var/log/application.log` and this can be checked by logging into the instance using `piu`. Alternatively, a log provider such as [Scalyr](https://www.scalyr.com) can be used.
