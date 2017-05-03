@@ -37,7 +37,7 @@ docker push pierone.stups.example.org/<your-team>teamname/gpu-hello-world:IMAGEV
 In order to deploy the stack with version `STACKVERSION`, run the following `senza` command:
 
 ```bash
-senza create --region=eu-west-1 deploy-definition.yaml STACKVERSION pierone.stups.example.org IMAGEVERSION example-mint-bucket-eu-west-1 --region=eu-west-1
+senza create --region=eu-west-1 deploy-definition.yaml STACKVERSION pierone.stups.example.org IMAGEVERSION example-mint-bucket-eu-west-1
 ```
 
 This assumes:
