@@ -20,15 +20,55 @@ SenzaComponents:
   # will create a launch configuration and auto scaling group with scaling triggers
   - AppServer:
       Type: Senza::TaupageAutoScalingGroup
+
+      # p2.* or g2.* instances are required for GPU computing. p2.* instances are recommended.
       InstanceType: p2.xlarge
-      SpotPrice: 10.0
+      # specify a spot price for the GPU instances
+      SpotPrice: 0.972
+      # Create a security group and IAM role at start up
       SecurityGroups:
-        - app-gpu-hello-world
+      - Fn::GetAtt:
+        - GPUHelloWorldSecurityGroup
+        - GroupId
       IamRoles:
-        - app-gpu-hello-world
+        - Ref: GPUHelloWorldRole
+
       AssociatePublicIpAddress: false # change for standalone deployment in default VPC
       TaupageConfig:
         application_version: "{{Arguments.ImageVersion}}"
         runtime: Docker
         source: "{{Arguments.PieroneRegistry}}/{{AccountInfo.TeamID}}/gpu-hello-world:{{Arguments.ImageVersion}}"
         mint_bucket: "{{Arguments.MintBucket}}"
+
+Resources:
+  GPUHelloWorldSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: GPU Hello World Security Group
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+
+  GPUHelloWorldRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service: ec2.amazonaws.com
+          Action: sts:AssumeRole
+      Path: /
+      Policies:
+      - PolicyName: AmazonS3ReadOnlyAccess
+        PolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+          - Effect: Allow
+            Action:
+            - s3:GetObject
+            Sid: "AllowMintRead"
+            Resource: ["arn:aws:s3:::{{Arguments.MintBucket}}/*"]
