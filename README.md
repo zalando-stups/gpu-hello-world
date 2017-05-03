@@ -4,9 +4,28 @@ This application represents a basic GPU example to demonstrate the use of GPU in
 
 This is discussed in the STUPS User Guide [here](http://stups.readthedocs.io/en/latest/user-guide/gpu-hello-world.html).
 
-## Deployment
+## Building and pushing the Docker image
 
-### Creating the Cloud Formation Stack using Senza
+In order to build the Docker image, an `scm-source.json` file is required to build the Docker image for this project. The [STUPS documentation](http://stups.readthedocs.io/en/latest/user-guide/application-development.html#scm-source-json) provides a description of the file and alternative ways to generate it. One method is to use the `scm-source` [Python package](https://pypi.python.org/pypi/scm-source):
+```bash
+pip3 install --upgrade scm-source
+scm-source
+```
+
+Now the Docker image for this example can be built by running the following command:
+```bash
+docker build -t pierone.example.com/teamname/gpu-hello-world:IMAGEVERSION .
+```
+where `IMAGEVERSION` represents the version tag to associate with the Docker images.
+
+The built image can then be pushed to the PierOne registry:
+```bash
+docker push pierone.example.com/teamname/gpu-hello-world:IMAGEVERSION
+```
+(running the `pierone login` command may be required)
+
+
+## Creating the Cloud Formation Stack using Senza
 In order to deploy the stack with version `STACKVERSION`, run the following `senza` command:
 
 ```bash
