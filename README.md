@@ -22,13 +22,13 @@ scm-source
 
 Now the Docker image for this example can be built by running the following command:
 ```bash
-docker build -t pierone.example.com/teamname/gpu-hello-world:IMAGEVERSION .
+docker build -t pierone.stups.example.org/teamname/gpu-hello-world:IMAGEVERSION .
 ```
 where `IMAGEVERSION` represents the version tag to associate with the Docker images.
 
 The built image can then be pushed to the PierOne registry:
 ```bash
-docker push pierone.example.com/teamname/gpu-hello-world:IMAGEVERSION
+docker push pierone.stups.example.org/<your-team>teamname/gpu-hello-world:IMAGEVERSION
 ```
 (running the `pierone login` command may be required)
 
@@ -37,11 +37,11 @@ docker push pierone.example.com/teamname/gpu-hello-world:IMAGEVERSION
 In order to deploy the stack with version `STACKVERSION`, run the following `senza` command:
 
 ```bash
-senza create --region=eu-west-1 deploy-definition.yaml STACKVERSION pierone.example.com IMAGEVERSION example-mint-bucket-eu-west-1 --region=eu-west-1
+senza create --region=eu-west-1 deploy-definition.yaml STACKVERSION pierone.stups.example.org IMAGEVERSION example-mint-bucket-eu-west-1 --region=eu-west-1
 ```
 
 This assumes:
-* The Pierone registry is found at `pierone.example.com`
+* The Pierone registry is found at `pierone.stups.example.org`
 * A Docker image with version `IMAGEVERSION` exists at the registry for team to which the logged-in user belongs.
 * The Mint bucket for credential storage is at `example-mint-bucket-eu-west-1`
 
