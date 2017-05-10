@@ -3,10 +3,10 @@
 SenzaInfo:
   StackName: gpu-hello-world
   Parameters:
-    - PieroneRegistry:
-        Description: "The Pierone registry hostname."
+    - DockerImage:
+        Description: "The full Pierone path of the Docker image to use"
     - ImageVersion:
-        Description: "Docker image version of gpu-hello-world."
+        Description: "Docker image version of gpu-hello-world"
     - MintBucket:
         Description: "The Mint bucket to use for credential storage"
 
@@ -37,7 +37,7 @@ SenzaComponents:
       TaupageConfig:
         application_version: "{{Arguments.ImageVersion}}"
         runtime: Docker
-        source: "{{Arguments.PieroneRegistry}}/{{AccountInfo.TeamID}}/gpu-hello-world:{{Arguments.ImageVersion}}"
+        source: "{{Arguments.DockerImage}}:{{Arguments.ImageVersion}}"
         mint_bucket: "{{Arguments.MintBucket}}"
 
 Resources:
