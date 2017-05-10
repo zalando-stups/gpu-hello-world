@@ -22,13 +22,13 @@ scm-source
 
 Now the Docker image for this example can be built by running the following command:
 ```bash
-docker build -t pierone.stups.example.org/teamname/gpu-hello-world:IMAGEVERSION .
+docker build -t pierone.stups.example.org/<your-team>/gpu-hello-world:IMAGEVERSION .
 ```
 where `IMAGEVERSION` represents the version tag to associate with the Docker images.
 
 The built image can then be pushed to the PierOne registry:
 ```bash
-docker push pierone.stups.example.org/<your-team>teamname/gpu-hello-world:IMAGEVERSION
+docker push pierone.stups.example.org/<your-team>/gpu-hello-world:IMAGEVERSION
 ```
 (running the `pierone login` command may be required)
 
