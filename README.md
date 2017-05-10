@@ -37,11 +37,11 @@ docker push pierone.stups.example.org/<your-team>/gpu-hello-world:IMAGEVERSION
 In order to deploy the stack with version `STACKVERSION`, run the following `senza` command:
 
 ```bash
-senza create --region=eu-west-1 deploy-definition.yaml STACKVERSION IMAGENAME IMAGEVERSION example-mint-bucket-eu-west-1
+senza create --region=eu-west-1 deploy-definition.yaml STACKVERSION pierone.stups.example.org/<your-team>/gpu-hello-world IMAGEVERSION example-mint-bucket-eu-west-1
 ```
 
 This assumes:
-* A Docker image `IMAGENAME:IMAGEVERSION` exists in the Pierone registry. For example: `pierone.stups.example.org/<your-team>/gpu-hello-world:IMAGEVERSION`.
+* A Docker image `pierone.stups.example.org/<your-team>/gpu-hello-world:IMAGEVERSION` exists in the Pierone registry (where `<your-team>` indicates the team for which the image was pushed).
 * The Mint bucket for credential storage is at `example-mint-bucket-eu-west-1`
 
 ### Checking the output
